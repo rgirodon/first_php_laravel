@@ -13,6 +13,14 @@ class CreateUserController extends Controller {
     
     public function handleForm(Request $request) {
         
-        return 'Le nom est ' . $request->input('nom');
+        $validatedData = $request->validate([
+            'nom' => 'bail|required|alpha_dash|min:4|max:10',
+        ]);
+
+        $msg = 'Hello';
+
+        $nom = $request->input('nom');
+
+        return view('create_user_confirm', compact('msg', 'nom'));
     }
 }

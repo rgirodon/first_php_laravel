@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Contact;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +15,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::get('/user', function (Request $request) {
     return $request->user();
-});
+})->middleware('auth:api');
+
+Route::get('/contacts', function () {
+    return Contact::all();
+})->middleware('client');
 
 Route::get('hola/{name}', function($name) {
     return 'Hola '.$name.' !';
